@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import javax.xml.transform.sax.SAXSource;
 import mockdata.MockData;
 import org.assertj.core.util.Lists;
 import org.junit.Test;
@@ -16,7 +17,13 @@ public class Lecture8 {
 
   @Test
   public void simpleGrouping() throws Exception {
-
+    Map<String, List<Car>> collectedCars = MockData.getCars()
+        .stream()
+        .collect(Collectors.groupingBy(Car::getMake));
+    collectedCars.forEach((make,cars)->{
+      System.out.println(make);
+      cars.forEach(System.out::println);
+    });
   }
 
   @Test
@@ -34,6 +41,9 @@ public class Lecture8 {
             "Alex"
         );
 
+    Map<String, Long> collectedResult = names.stream()
+        .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+    collectedResult.forEach((name,count)-> System.out.println(name + "-->"+count));
 
   }
 

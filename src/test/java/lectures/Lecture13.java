@@ -12,7 +12,7 @@ public class Lecture13 {
             .stream()
             .filter(car -> {
               System.out.println("filter car " + car);
-              return car.getPrice() < 10000;
+              return car.getPrice() < 5000;
             })
             .map(car -> {
               System.out.println("mapping car " + car);

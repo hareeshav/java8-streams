@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableList;
 import java.math.BigDecimal;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 import mockdata.MockData;
 import org.junit.Test;
@@ -16,16 +17,36 @@ public class Lecture7 {
 
   @Test
   public void count() throws Exception {
-
+    List<Car> cars = MockData.getCars();
+    long yellowCarCount = cars.stream()
+        .filter(c -> c.getColor().equalsIgnoreCase("yellow"))
+        .count();
+    System.out.println(yellowCarCount);
   }
 
   @Test
   public void min() throws Exception {
 
+    List<Car> cars = MockData.getCars();
+    OptionalDouble yellow = cars.stream()
+        .filter(c -> c.getColor().equalsIgnoreCase("yellow"))
+        .mapToDouble(c -> c.getPrice())
+        .min();
+
+    System.out.println(yellow.getAsDouble());
+
   }
 
   @Test
   public void max() throws Exception {
+    List<Car> cars = MockData.getCars();
+    OptionalDouble yellow = cars.stream()
+        .filter(c -> c.getColor().equalsIgnoreCase("yellow"))
+        .mapToDouble(c -> c.getPrice())
+        .max();
+
+    System.out.println(yellow.getAsDouble());
+
 
   }
 
@@ -33,6 +54,10 @@ public class Lecture7 {
   @Test
   public void average() throws Exception {
     List<Car> cars = MockData.getCars();
+    cars.stream()
+        .mapToDouble(Car::getPrice)
+        .average()
+        .orElse(0);
 
   }
 
